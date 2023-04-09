@@ -1,10 +1,7 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  RainbowKitProvider,
-  getDefaultWallets,
-} from '@rainbow-me/rainbowkit';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
@@ -12,6 +9,7 @@ import { publicProvider } from 'wagmi/providers/public';
 
 import './index.css';
 import App from './App';
+import { getDefaultWallets } from './tmp/rainbowkit/getDefaultWallets'
 
 const { chains, provider } = configureChains(
   [mainnet],
