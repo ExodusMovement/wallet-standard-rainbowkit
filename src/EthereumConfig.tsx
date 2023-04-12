@@ -5,7 +5,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { getDefaultWallets } from './tmp/rainbowkit/getDefaultWallets'
+import useDefaultWallets from './useDefaultWallets';
 
 const { chains, provider } = configureChains(
   [mainnet],
@@ -20,18 +20,18 @@ const { chains, provider } = configureChains(
   ],
 );
 
-const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit Wallet Standard',
-  chains
-});
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
-})
-
 function EthereumConfig({ children }: { children: React.ReactNode }) {
+  const { connectors } = useDefaultWallets({
+    appName: 'RainbowKit Wallet Standard',
+    chains,
+  });
+
+  const wagmiClient = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+  });
+
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
