@@ -8,6 +8,6 @@ function useDefaultWallets({
   chains: Chain[];
 }): ReturnType<typeof getDefaultWallets> {
   return getDefaultWallets({ appName, chains });
-};
+}
 
 export default useDefaultWallets;
