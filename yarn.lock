@@ -1084,7 +1084,7 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@coinbase/wallet-sdk@^3.5.4":
+"@coinbase/wallet-sdk@^3.5.4", "@coinbase/wallet-sdk@^3.6.4":
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.5.tgz#5ca894771b4eb9cbfaf754c1422f0287329e6868"
   integrity sha512-8F91dvvC/+CTpaNTr+FgpLMa2YxjpXpE9pdnGewMoYi41ISbiXZado5VjYo9QSZlS+myzfKvDGpTzLFFUXPfDg==
@@ -3098,6 +3098,21 @@
     abitype "^0.3.0"
     eventemitter3 "^4.0.7"
 
+"@wagmi/connectors@^0.3.13":
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-0.3.13.tgz#0bf71aef49756edbdb6ee9bbba6ebbffe18b6345"
+  integrity sha512-9h/Ffff0r+WfmoLl9cf6Skk6uJVRNUEtLi4AG88CyDR4b2l5TulF2c+aqxqhZQHGnhGgoP0jq2VINnRKn9a4vg==
+  dependencies:
+    "@coinbase/wallet-sdk" "^3.6.4"
+    "@ledgerhq/connect-kit-loader" "^1.0.1"
+    "@safe-global/safe-apps-provider" "^0.15.2"
+    "@safe-global/safe-apps-sdk" "^7.9.0"
+    "@walletconnect/ethereum-provider" "2.6.2"
+    "@walletconnect/legacy-provider" "^2.0.0"
+    "@web3modal/standalone" "^2.2.2"
+    abitype "^0.3.0"
+    eventemitter3 "^4.0.7"
+
 "@wagmi/core@0.10.9":
   version "0.10.9"
   resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.10.9.tgz#cd26203465aa8238a5c15eb6613b3ab9538a7401"
@@ -3108,6 +3123,18 @@
     abitype "^0.3.0"
     eventemitter3 "^4.0.7"
     zustand "^4.3.1"
+
+"@wallet-standard/app@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wallet-standard/app/-/app-1.0.1.tgz#f83c3ae887f7fb52497a7b259bba734ae10a2994"
+  integrity sha512-LnLYq2Vy2guTZ8GQKKSXQK3+FRGPil75XEdkZqE6fiLixJhZJoJa5hT7lXxwe0ykVTt9LEThdTbOpT7KadS26Q==
+  dependencies:
+    "@wallet-standard/base" "^1.0.1"
+
+"@wallet-standard/base@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wallet-standard/base/-/base-1.0.1.tgz#860dd94d47c9e3c5c43b79d91c6afdbd7a36264e"
+  integrity sha512-1To3ekMfzhYxe0Yhkpri+Fedq0SYcfrOfJi3vbLjMwF2qiKPjTGLwZkf2C9ftdQmxES+hmxhBzTwF4KgcOwf8w==
 
 "@walletconnect/core@2.6.2":
   version "2.6.2"

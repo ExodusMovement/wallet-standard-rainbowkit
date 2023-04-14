@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.12.7",
+    "@wagmi/connectors": "^0.3.13",
+    "@wallet-standard/app": "^1.0.1",
     "ethers": "^5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -18,6 +20,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@wallet-standard/base": "^1.0.1",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
