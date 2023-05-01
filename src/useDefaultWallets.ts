@@ -78,12 +78,19 @@ function useDefaultWallets({
   appName: string;
   chains: Chain[];
 }): {
-  connectors: ReturnType<typeof connectorsForWallets>;
+  connectors: [] | ReturnType<typeof connectorsForWallets>;
   wallets: WalletList;
 } {
   const nonStandardWallets = useNonStandardWallets({ appName, chains });
 
   const standardWallets = useStandardWallets({ chains });
+
+  // Wait for the `standardWallets` to be defined to pass all connectors to `createClient` just once.
+  if (!standardWallets.length)
+    return {
+      connectors: [],
+      wallets: [],
+    };
 
   const wallets: WalletList = [
     {
