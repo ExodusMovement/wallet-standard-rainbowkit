@@ -37,7 +37,7 @@ function EthereumConfig({ children }: { children: React.ReactNode }) {
     });
   }, [connectors]);
 
-  if (!wagmiClient) return <></>;
+  if (!wagmiClient) return null;
 
   return (
     <WagmiConfig client={wagmiClient}>
