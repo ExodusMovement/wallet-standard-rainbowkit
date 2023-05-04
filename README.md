@@ -13,7 +13,7 @@ Points of interest:
 Please note that the PoC has a [temporary workaround](src/useDefaultWallets.ts#L88) requiring at least
 one wallet to be registered in the Standard compatible way
 (otherwise the Wagmi Client will be not instantiated and the connection button will not appear).
-In order to inject a wallet in the Standard compatible way you can either:
+In order to inject a wallet in the Standard compatible way you should either:
 
 1. Download Exodus wallet from Chrome store: [link](https://chrome.google.com/webstore/detail/exodus-web3-wallet/aholpfdialjgjfhomihkjbmgjidlcdno).
    No additional action required as Exodus already registers itself as a Standard Ethereum Wallet.
