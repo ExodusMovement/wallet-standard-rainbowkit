@@ -6,7 +6,7 @@ Wagmi and Rainbowkit ecosystem to improve UX for Ethereum users.
 Points of interest:
 
 - [A preliminary implementation of the Wallet Standard Wagmi connector](src/tmp/wagmi/connectors/walletStandard.ts)
-- [A preliminary implementation of Wallet Standard "wallet" for Rainbowkit.](./src/tmp/rainbowkit/wallets/standardWallet)
+- [A preliminary implementation of the Wallet Standard "wallet" for Rainbowkit](./src/tmp/rainbowkit/wallets/standardWallet)
 
 ## Testing
 
