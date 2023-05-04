@@ -15,7 +15,7 @@ one wallet to be registered in the Standard compatible way
 (otherwise the Wagmi Client will be not instantiated and the connection button will not appear).
 In order to inject a wallet in the Standard compatible way you should either:
 
-1. Download Exodus wallet from Chrome store: [link](https://chrome.google.com/webstore/detail/exodus-web3-wallet/aholpfdialjgjfhomihkjbmgjidlcdno).
+1. Download Exodus wallet from the Chrome store: [link](https://chrome.google.com/webstore/detail/exodus-web3-wallet/aholpfdialjgjfhomihkjbmgjidlcdno).
    No additional action required as Exodus already registers itself as a Standard Ethereum Wallet.
 2. If you have any EIP-1193 compatible wallet installed, you can register it as a Standard Wallet with the following code: [Github gist](https://gist.github.com/bulgakovk/653b6dc94e5523621b41d53687e7122d).
 
