@@ -1,7 +1,7 @@
 # Wallet Standard Connector Demo
 
-This project is a PoC showing how [Wallet Standard](https://github.com/wallet-standard/wallet-standard) connector can fit into
-Wagmi and Rainbowkit ecosystem improving UX for Ethereum users.
+This project is a PoC demonstrating how the [Wallet Standard](https://github.com/wallet-standard/wallet-standard) connector should fit into the
+Wagmi and Rainbowkit ecosystem to improve UX for Ethereum users.
 
 Points of interest:
 
