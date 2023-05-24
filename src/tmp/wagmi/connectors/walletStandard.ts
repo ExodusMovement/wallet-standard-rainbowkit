@@ -1,23 +1,25 @@
 // TODO: Migrate to https://github.com/wagmi-dev/references/tree/main/packages/connectors.
 // @ts-nocheck
 
-import { Connector, Ethereum } from '@wagmi/connectors';
+import { Connector } from '@wagmi/connectors';
 import {
-  AddChainError,
   ChainNotConfiguredError,
   ConnectorNotFoundError,
-  ProviderRpcError,
-  ResourceUnavailableError,
-  SwitchChainError,
-  UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
+  getConfig,
 } from '@wagmi/core';
 import type { Address, RpcError } from '@wagmi/core';
 import type { Chain } from '@wagmi/core/chains';
 import type { Wallet as StandardWallet } from '@wallet-standard/base';
+import { WindowProvider } from '@wagmi/connectors';
 import { providers } from 'ethers';
 import { getAddress, hexValue } from 'ethers/lib/utils.js';
+import {
+  createWalletClient,
+  UserRejectedRequestError,
+  SwitchChainError,
+  ProviderRpcError,
+  ResourceNotFoundRpcError,
+} from 'viem';
 
 export type WalletStandardConnectorOptions = {
   /**
@@ -30,8 +32,19 @@ export type WalletStandardConnectorOptions = {
 
 type ConnectorOptions = WalletStandardConnectorOptions;
 
+// ToDo: import from https://github.com/wagmi-dev/references/blob/7e274f546614a0ba40d7c7bccb4ec99a7791fcc6/packages/connectors/src/utils/normalizeChainId.ts#L1-L0 instead.
+function normalizeChainId(chainId: string | number | bigint) {
+  if (typeof chainId === 'string')
+    return Number.parseInt(
+      chainId,
+      chainId.trim().substring(0, 2) === '0x' ? 16 : 10,
+    );
+  if (typeof chainId === 'bigint') return Number(chainId);
+  return chainId;
+}
+
 export class WalletStandardConnector extends Connector<
-  Ethereum | undefined,
+  WindowProvider | undefined,
   ConnectorOptions,
   providers.JsonRpcSigner
 > {
@@ -94,14 +107,14 @@ export class WalletStandardConnector extends Connector<
 
       // Add shim to storage signalling wallet is connected
       if (this.options.shimDisconnect)
-        getClient().storage?.setItem(this.shimDisconnectKey, true);
+        getConfig().storage?.setItem(this.shimDisconnectKey, true);
 
       return { account, chain: { id, unsupported }, provider };
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
         throw new UserRejectedRequestError(error);
-      if ((error as RpcError).code === -32002)
-        throw new ResourceUnavailableError(error);
+      if ((error as ProviderRpcError).code === -32002)
+        throw new ResourceNotFoundRpcError(error);
       throw error;
     }
   }
@@ -116,7 +129,7 @@ export class WalletStandardConnector extends Connector<
 
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey);
+      getConfig().storage?.removeItem(this.shimDisconnectKey);
   }
 
   async getAccount() {
@@ -139,15 +152,17 @@ export class WalletStandardConnector extends Connector<
     return this.#wallet.features['ethereum:provider'].provider;
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
     ]);
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account);
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0];
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    });
   }
 
   async isAuthorized() {
@@ -155,7 +170,7 @@ export class WalletStandardConnector extends Connector<
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !getConfig().storage?.getItem(this.shimDisconnectKey)
       )
         return false;
 
@@ -229,10 +244,8 @@ export class WalletStandardConnector extends Connector<
             );
 
           return chain;
-        } catch (addError) {
-          if (this.isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(addError);
-          throw new AddChainError();
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error);
         }
       }
 
@@ -297,7 +310,7 @@ export class WalletStandardConnector extends Connector<
     this.emit('disconnect');
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey);
+      getConfig().storage?.removeItem(this.shimDisconnectKey);
   };
 
   protected isUserRejectedRequestError(error: unknown) {
