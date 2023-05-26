@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^0.12.7",
-    "@wagmi/connectors": "^0.3.13",
+    "@rainbow-me/rainbowkit": "^1.0.0",
+    "@wagmi/connectors": "^1.0.3",
     "@wallet-standard/app": "^1.0.1",
-    "ethers": "^5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "wagmi": "^0.12.10"
+    "viem": "^0.3.35",
+    "wagmi": "^1.0.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",

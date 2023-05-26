@@ -1,25 +1,12 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
+import { configureChains, createConfig, WagmiConfig, mainnet } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { useMemo } from 'react';
 
 import useDefaultWallets from './useDefaultWallets';
 
-const { chains, provider } = configureChains(
-  [mainnet],
-  [
-    alchemyProvider({
-      apiKey: '4Ow2G3LYC6SXr_AOesCG8Fi0_bxTGf1x',
-      priority: 0,
-    }),
-    publicProvider({
-      priority: 1,
-    }),
-  ],
-);
+const { chains, publicClient } = configureChains([mainnet], [publicProvider()]);
 
 function EthereumConfig({ children }: { children: React.ReactNode }) {
   const { connectors, wallets } = useDefaultWallets({
@@ -27,20 +14,20 @@ function EthereumConfig({ children }: { children: React.ReactNode }) {
     chains,
   });
 
-  const wagmiClient = useMemo(() => {
+  const wagmiConfig = useMemo(() => {
     if (!wallets.length) return;
 
-    return createClient({
+    return createConfig({
       autoConnect: true,
       connectors,
-      provider,
+      publicClient,
     });
   }, [connectors]);
 
-  if (!wagmiClient) return null;
+  if (!wagmiConfig) return null;
 
   return (
-    <WagmiConfig client={wagmiClient}>
+    <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
     </WagmiConfig>
   );
